@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+<context:property-placeholder location = "classpath:sport.properties"/>
+  <!-- for create an instance or object of the HappyFortuneService class -->
+    <bean id="myFortune" class="com.shehab.springdemo.HappyFortuneService"> 
+    </bean>
+    
+      <!-- bean for dependency injection by constructor-->
+    <bean id="myCoach"
+    class = "com.shehab.springdemo.TrackCoach">
+        <constructor-arg ref="myFortune"/>
+    </bean>
+    
+     <!-- bean for dependency injection by setter method -->
+    <bean id="myCricketCoach" class = "com.shehab.springdemo.CricketCoach">
+   
+   <property name="fortuneService" ref="myFortune"/>
+   <property name="emailAddress" value="${foo.email}"></property>
+   <property name="team" value="${foo.team}"></property> 
+    </bean>
+    
+     <bean id="myLoggerConfig" class="com.shehab.springdemo.MyLoggerConfig" init-method="initLogger">
+    	<property name="rootLoggerLevel" value="FINE" />
+    	<property name="printedLoggerLevel" value="FINE"/>
+    </bean>
+    <bean id="myFortunePresenter" class = "com.shehab.springdemo.task.FortuneServicePresenter">
+    </bean>
+    <bean id="myBasketBallCoach" class = "com.shehab.springdemo.task.BasketBallCoach">
+    <constructor-arg ref="myFortunePresenter"/>
+    </bean>
+</beans>
+
+
+
+
+

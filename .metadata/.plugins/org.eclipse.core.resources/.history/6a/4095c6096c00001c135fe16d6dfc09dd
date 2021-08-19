@@ -1,0 +1,5 @@
+package com.springdemo.hibernate.entity;
+
+public class InstructorDetail {
+
+}
